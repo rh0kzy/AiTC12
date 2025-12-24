@@ -1,0 +1,4 @@
+/.dockerignore
+/.env.example
+/docker-compose.yml
+/venv
