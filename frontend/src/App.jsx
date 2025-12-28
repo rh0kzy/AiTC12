@@ -3,7 +3,11 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Bot, User, Loader2, Sparkles, ShieldAlert, BadgeCheck } from 'lucide-react';
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '');
+let rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+if (rawUrl && !rawUrl.startsWith('http')) {
+  rawUrl = `https://${rawUrl}`;
+}
+const API_BASE_URL = rawUrl.replace(/\/$/, '');
 
 function App() {
   const [messages, setMessages] = useState([
