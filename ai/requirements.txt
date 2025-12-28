@@ -1,8 +1,6 @@
 python-dotenv
 mistralai
 langdetect
-transformers
-torch
 numpy
 langchain
 langchain-mistralai

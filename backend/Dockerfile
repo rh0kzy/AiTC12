@@ -8,13 +8,14 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements
+# Install dependencies
 COPY ai/requirements.txt ./ai/requirements.txt
-RUN pip install --no-cache-dir -r ai/requirements.txt
-RUN pip install --no-cache-dir fastapi uvicorn pydantic python-dotenv structlog tenacity circuitbreaker flask-cors
+RUN pip install --no-cache-dir -r ai/requirements.txt && \
+    pip install --no-cache-dir fastapi uvicorn pydantic python-dotenv structlog tenacity circuitbreaker flask-cors
 
-# Copy the rest of the application
-COPY . .
+# Copy only necessary folders
+COPY ai/ ./ai/
+COPY backend/ ./backend/
 
 # Set environment variables
 ENV PYTHONPATH=/app
