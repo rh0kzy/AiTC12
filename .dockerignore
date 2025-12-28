@@ -6,4 +6,3 @@ frontend/node_modules
 frontend/dist
 backend/__pycache__
 ai/__pycache__
-ai/chroma_db
