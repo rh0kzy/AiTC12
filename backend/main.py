@@ -9,6 +9,7 @@ from typing import Optional, List, Dict, Any
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai.agent_manager import AgentManager
+from ai.solutionfinder import ingest_pdf_to_chroma
 
 app = FastAPI(title="Doxa AI Agent API")
 
@@ -26,6 +27,25 @@ agent_manager = AgentManager()
 
 class TicketRequest(BaseModel):
     ticket: str
+
+class IngestRequest(BaseModel):
+    content: str
+    category: str = "general"
+    is_path: bool = False
+
+@app.post("/ingest")
+async def ingest_doc(request: IngestRequest):
+    try:
+        if request.is_path:
+            if os.path.exists(request.content):
+                ingest_pdf_to_chroma(request.content, category=request.category)
+                return {"status": "success", "message": f"Ingested PDF: {request.content}"}
+            else:
+                raise HTTPException(status_code=404, detail="File not found on server")
+        else:
+            return {"status": "error", "message": "Text ingestion not implementation yet"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 class RatingRequest(BaseModel):
     ticket_id: str
