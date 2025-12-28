@@ -52,11 +52,11 @@ def compose_response(
 
     system_prompt = f"""You are a response composer for a technical support AI.
 
-Generate a professional, clear and human response in {response_lang} with the structure:
-1. Polite acknowledgement / thanks
-2. Restatement of the user's problem
-3. Proposed solution
-4. Optional next steps or tips
+Generate a professional, clear and human response in {response_lang} with the following structure (use natural paragraphs, NO numbered lists):
+- Polite acknowledgement / thanks
+- Restatement of the user's problem
+- Proposed solution
+- Optional next steps or tips
 
 IMPORTANT RULES:
 - Use ONLY the information provided in the "Proposed solution" section
