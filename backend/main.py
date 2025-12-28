@@ -1,0 +1,67 @@
+import sys
+import os
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Optional, List, Dict, Any
+
+# Add the project root to sys.path to allow importing from the 'ai' directory
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from ai.agent_manager import AgentManager
+
+app = FastAPI(title="Doxa AI Agent API")
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Initialize AgentManager
+agent_manager = AgentManager()
+
+class TicketRequest(BaseModel):
+    ticket: str
+
+class RatingRequest(BaseModel):
+    ticket_id: str
+    stars: int
+    analysis: Dict[str, Any]
+    precheck: Dict[str, Any]
+
+@app.post("/process_ticket")
+async def process_ticket(request: TicketRequest):
+    if not request.ticket:
+        raise HTTPException(status_code=400, detail="No ticket content provided")
+    
+    try:
+        # Run the agent pipeline
+        result = agent_manager.process_ticket(request.ticket)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/rate_ticket")
+async def rate_ticket(request: RatingRequest):
+    try:
+        result = agent_manager.handle_rating(
+            request.ticket_id, 
+            request.stars, 
+            request.analysis, 
+            request.precheck
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

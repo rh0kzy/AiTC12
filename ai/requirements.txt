@@ -1,0 +1,15 @@
+python-dotenv
+mistralai
+langdetect
+transformers
+torch
+numpy
+langchain
+langchain-mistralai
+langchain-experimental
+chromadb
+tenacity
+circuitbreaker
+structlog
+flask
+flask-cors
