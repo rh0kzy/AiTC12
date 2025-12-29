@@ -75,16 +75,12 @@ function App() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <div style={{ background: 'white', padding: '2px', borderRadius: '0.75rem', overflow: 'hidden', width: '48px', height: '48px' }}>
-            <img src="/favicon.png" alt="Doxa Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
           <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.025em' }}>
             Doxa AI <span style={{ color: 'var(--primary-color)' }}>Agent</span>
           </h1>
         </motion.div>
-        <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Système de Support Intelligent & RAG</p>
       </header>
 
       <main className="glass-morphism messages-list" style={{ flex: 1, padding: '1.5rem' }}>
