@@ -77,8 +77,8 @@ function App() {
           transition={{ duration: 0.5 }}
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}
         >
-          <div style={{ background: 'var(--primary-color)', padding: '0.5rem', borderRadius: '0.75rem' }}>
-            <Sparkles size={32} color="white" />
+          <div style={{ background: 'white', padding: '2px', borderRadius: '0.75rem', overflow: 'hidden', width: '48px', height: '48px' }}>
+            <img src="/favicon.png" alt="Doxa Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.025em' }}>
             Doxa AI <span style={{ color: 'var(--primary-color)' }}>Agent</span>
